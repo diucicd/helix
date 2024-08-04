@@ -25,6 +25,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "home" => goto_line_start,
         "end" => goto_line_end,
+        //"G" => goto_last_line,
 
         "w" => move_next_word_start,
         "b" => move_prev_word_start,
@@ -34,23 +35,27 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "B" => move_prev_long_word_start,
         "E" => move_next_long_word_end,
 
+        "H" => goto_window_top,
+        "M" => goto_window_center,
+        "L" => goto_window_bottom,
+
         "v" => select_mode,
         "G" => goto_line,
         "g" => { "Goto"
             "g" => goto_file_start,
-            "e" => goto_last_line,
+            "G" => goto_last_line,
             "f" => goto_file,
-            "h" => goto_line_start,
-            "l" => goto_line_end,
+            "^" => goto_line_start,
+            "$" => goto_line_end,
             "s" => goto_first_nonwhitespace,
             "d" => goto_definition,
             "D" => goto_declaration,
             "y" => goto_type_definition,
             "r" => goto_reference,
             "i" => goto_implementation,
-            "t" => goto_window_top,
-            "c" => goto_window_center,
-            "b" => goto_window_bottom,
+            "H" => goto_window_top,
+            "M" => goto_window_center,
+            "L" => goto_window_bottom,
             "a" => goto_last_accessed_file,
             "m" => goto_last_modified_file,
             "n" => goto_next_buffer,
@@ -85,7 +90,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "S" => split_selection,
         ";" => collapse_selection,
         "A-;" => flip_selections,
-        "A-o" | "A-up" => expand_selection,
+        "C-v" | "A-up" => expand_selection,
         "A-i" | "A-down" => shrink_selection,
         "A-I" | "A-S-down" => select_all_children,
         "A-p" | "A-left" => select_prev_sibling,
@@ -165,7 +170,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "K" => keep_selections,
         "A-K" => remove_selections,
 
-        "," => keep_primary_selection,
+        //"," => keep_primary_selection,
         "A-," => remove_primary_selection,
 
         // "q" => record_macro,
@@ -182,6 +187,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "A-:" => ensure_selections_forward,
 
         "esc" => normal_mode,
+        "C-c" => normal_mode,
         "C-b" | "pageup" => page_up,
         "C-f" | "pagedown" => page_down,
         "C-u" => page_cursor_half_up,
@@ -211,7 +217,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         },
 
         // move under <space>c
-        "C-c" => toggle_comments,
+        // "C-c" => toggle_comments,
 
         // z family for save/restore/combine from/to sels from register
 
@@ -219,14 +225,12 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "C-o" => jump_backward,
         "C-s" => save_selection,
 
-        "space" => { "Space"
-            "f" => file_picker,
-            "F" => file_picker_in_current_directory,
-            "e" => file_explorer,
-            "E" => file_explorer_in_current_buffer_directory,
+        "space" | "," => { "Space"
+            "F" => file_picker,
+            "f" => file_picker_in_current_directory,
             "b" => buffer_picker,
             "j" => jumplist_picker,
-            "s" => symbol_picker,
+            "e" => symbol_picker,
             "S" => workspace_symbol_picker,
             "d" => diagnostics_picker,
             "D" => workspace_diagnostics_picker,
@@ -244,7 +248,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
                 "n" => dap_next,
                 "v" => dap_variables,
                 "t" => dap_terminate,
-                "C-c" => dap_edit_condition,
+                //"C-c" => dap_edit_condition,
                 "C-l" => dap_edit_log,
                 "s" => { "Switch"
                     "t" => dap_switch_thread,
@@ -333,8 +337,8 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "$" => shell_keep_pipe,
         "C-z" => suspend,
 
-        "C-a" => increment,
-        "C-x" => decrement,
+        "C-a" => goto_first_nonwhitespace,
+        "C-e" => goto_line_end,
     });
     let mut select = normal.clone();
     select.merge_nodes(keymap!({ "Select mode"
@@ -395,8 +399,11 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "right" => move_char_right,
         "pageup" => page_up,
         "pagedown" => page_down,
-        "home" => goto_line_start,
-        "end" => goto_line_end_newline,
+        //"home" => goto_line_start,
+        //"end" => goto_line_end_newline,
+
+        "C-a" => goto_first_nonwhitespace,
+        "C-e" => goto_line_end,
     });
     hashmap!(
         Mode::Normal => normal,
