@@ -21,7 +21,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "~" => switch_case,
         "`" => switch_to_lowercase,
-        "S-`" => switch_to_uppercase,
+        "U" => switch_to_uppercase,
 
         "home" => goto_line_start,
         "end" => goto_line_end,
@@ -149,7 +149,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "A-*" => search_selection,
 
         "u" => undo,
-        "U" => redo,
+        "C-r" => redo,
         "A-u" => earlier,
         "A-U" => later,
 
