@@ -69,7 +69,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "i" => insert_mode,
         "I" => insert_at_line_start,
-        "a" => append_mode,
+        "a" => insert_mode,
         "A" => insert_at_line_end,
         "o" => open_below,
         "O" => open_above,
