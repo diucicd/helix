@@ -242,7 +242,7 @@ fn diag_picker(
 
     let mut columns = vec![
         ui::PickerColumn::new(
-            "severity",
+            "SEVERITY",
             |item: &PickerDiagnostic, styles: &DiagnosticStyles| {
                 match item.diag.severity {
                     Some(DiagnosticSeverity::HINT) => Span::styled("HINT", styles.hint),
@@ -254,14 +254,14 @@ fn diag_picker(
                 .into()
             },
         ),
-        ui::PickerColumn::new("code", |item: &PickerDiagnostic, _| {
+        ui::PickerColumn::new("CODE", |item: &PickerDiagnostic, _| {
             match item.diag.code.as_ref() {
                 Some(NumberOrString::Number(n)) => n.to_string().into(),
                 Some(NumberOrString::String(s)) => s.as_str().into(),
                 None => "".into(),
             }
         }),
-        ui::PickerColumn::new("message", |item: &PickerDiagnostic, _| {
+        ui::PickerColumn::new("MESSAGE", |item: &PickerDiagnostic, _| {
             item.diag.message.as_str().into()
         }),
     ];
@@ -271,7 +271,7 @@ fn diag_picker(
         columns.insert(
             // between message code and message
             2,
-            ui::PickerColumn::new("path", |item: &PickerDiagnostic, _| {
+            ui::PickerColumn::new("PATH", |item: &PickerDiagnostic, _| {
                 if let Some(path) = item.location.uri.as_path() {
                     path::get_truncated_path(path)
                         .to_string_lossy()
@@ -398,13 +398,13 @@ pub fn symbol_picker(cx: &mut Context) {
         }
         let call = move |_editor: &mut Editor, compositor: &mut Compositor| {
             let columns = [
-                ui::PickerColumn::new("kind", |item: &SymbolInformationItem, _| {
+                ui::PickerColumn::new("KIND", |item: &SymbolInformationItem, _| {
                     display_symbol_kind(item.symbol.kind).into()
                 }),
                 // Some symbols in the document symbol picker may have a URI that isn't
                 // the current file. It should be rare though, so we concatenate that
                 // URI in with the symbol name in this picker.
-                ui::PickerColumn::new("name", |item: &SymbolInformationItem, _| {
+                ui::PickerColumn::new("NAME", |item: &SymbolInformationItem, _| {
                     item.symbol.name.as_str().into()
                 }),
                 ui::PickerColumn::new("container", |item: &SymbolInformationItem, _| {
@@ -508,21 +508,21 @@ pub fn workspace_symbol_picker(cx: &mut Context) {
         .boxed()
     };
     let columns = [
-        ui::PickerColumn::new("kind", |item: &SymbolInformationItem, _| {
+        ui::PickerColumn::new("KIND", |item: &SymbolInformationItem, _| {
             display_symbol_kind(item.symbol.kind).into()
         }),
-        ui::PickerColumn::new("name", |item: &SymbolInformationItem, _| {
+        ui::PickerColumn::new("NAME", |item: &SymbolInformationItem, _| {
             item.symbol.name.as_str().into()
         })
         .without_filtering(),
-        ui::PickerColumn::new("container", |item: &SymbolInformationItem, _| {
+        ui::PickerColumn::new("CONTAINER", |item: &SymbolInformationItem, _| {
             item.symbol
                 .container_name
                 .as_deref()
                 .unwrap_or_default()
                 .into()
         }),
-        ui::PickerColumn::new("path", |item: &SymbolInformationItem, _| {
+        ui::PickerColumn::new("PATH", |item: &SymbolInformationItem, _| {
             if let Some(path) = item.location.uri.as_path() {
                 path::get_relative_path(path)
                     .to_string_lossy()
@@ -855,7 +855,7 @@ fn goto_impl(editor: &mut Editor, compositor: &mut Compositor, locations: Vec<Lo
         [] => unreachable!("`locations` should be non-empty for `goto_impl`"),
         _locations => {
             let columns = [ui::PickerColumn::new(
-                "location",
+                "LOCATION",
                 |item: &Location, cwdir: &std::path::PathBuf| {
                     let path = if let Some(path) = item.uri.as_path() {
                         path.strip_prefix(cwdir).unwrap_or(path).to_string_lossy()

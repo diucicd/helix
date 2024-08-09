@@ -21,7 +21,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "~" => switch_case,
         "`" => switch_to_lowercase,
-        "A-`" => switch_to_uppercase,
+        "S-`" => switch_to_uppercase,
 
         "home" => goto_line_start,
         "end" => goto_line_end,
@@ -225,7 +225,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "C-o" => jump_backward,
         "C-s" => save_selection,
 
-        "space" | "," => { "Space"
+        "space" | "," => { "Leader"
             "F" => file_picker,
             "f" => file_picker_in_current_directory,
             "b" => buffer_picker,
@@ -236,7 +236,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
             "D" => workspace_diagnostics_picker,
             "g" => changed_file_picker,
             "a" => code_action,
-            "'" => last_picker,
+            "r" => last_picker,
             "G" => { "Debug (experimental)" sticky=true
                 "l" => dap_launch,
                 "r" => dap_restart,
@@ -287,7 +287,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
             "R" => replace_selections_with_clipboard,
             "/" => global_search,
             "k" => hover,
-            "r" => rename_symbol,
+            "s" => rename_symbol,
             "h" => select_references_to_symbol_under_cursor,
             "c" => toggle_comments,
             "C" => toggle_block_comments,

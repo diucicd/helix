@@ -2451,7 +2451,7 @@ fn global_search(cx: &mut Context) {
     };
 
     let columns = [
-        PickerColumn::new("path", |item: &FileResult, config: &GlobalSearchConfig| {
+        PickerColumn::new("PATH", |item: &FileResult, config: &GlobalSearchConfig| {
             let path = helix_stdx::path::get_relative_path(&item.path);
 
             let directories = path
@@ -2473,7 +2473,7 @@ fn global_search(cx: &mut Context) {
                 Span::styled((item.line_num + 1).to_string(), config.number_style),
             ]))
         }),
-        PickerColumn::hidden("contents"),
+        PickerColumn::hidden("CONTENTS"),
     ];
 
     let get_files = |query: &str,
@@ -3144,8 +3144,8 @@ fn buffer_picker(cx: &mut Context) {
     items.sort_unstable_by_key(|item| std::cmp::Reverse(item.focused_at));
 
     let columns = [
-        PickerColumn::new("id", |meta: &BufferMeta, _| meta.id.to_string().into()),
-        PickerColumn::new("flags", |meta: &BufferMeta, _| {
+        PickerColumn::new("ID", |meta: &BufferMeta, _| meta.id.to_string().into()),
+        PickerColumn::new("FLAGS", |meta: &BufferMeta, _| {
             let mut flags = String::new();
             if meta.is_modified {
                 flags.push('+');
@@ -3155,7 +3155,7 @@ fn buffer_picker(cx: &mut Context) {
             }
             flags.into()
         }),
-        PickerColumn::new("path", |meta: &BufferMeta, _| {
+        PickerColumn::new("PATH", |meta: &BufferMeta, _| {
             let path = meta
                 .path
                 .as_deref()
@@ -3217,8 +3217,8 @@ fn jumplist_picker(cx: &mut Context) {
     };
 
     let columns = [
-        ui::PickerColumn::new("id", |item: &JumpMeta, _| item.id.to_string().into()),
-        ui::PickerColumn::new("path", |item: &JumpMeta, _| {
+        ui::PickerColumn::new("ID", |item: &JumpMeta, _| item.id.to_string().into()),
+        ui::PickerColumn::new("PATH", |item: &JumpMeta, _| {
             let path = item
                 .path
                 .as_deref()
@@ -3229,7 +3229,7 @@ fn jumplist_picker(cx: &mut Context) {
                 .to_string()
                 .into()
         }),
-        ui::PickerColumn::new("flags", |item: &JumpMeta, _| {
+        ui::PickerColumn::new("FLAGS", |item: &JumpMeta, _| {
             let mut flags = Vec::new();
             if item.is_current {
                 flags.push("*");
@@ -3241,7 +3241,7 @@ fn jumplist_picker(cx: &mut Context) {
                 format!(" ({})", flags.join("")).into()
             }
         }),
-        ui::PickerColumn::new("contents", |item: &JumpMeta, _| item.text.as_str().into()),
+        ui::PickerColumn::new("CONTENTS", |item: &JumpMeta, _| item.text.as_str().into()),
     ];
 
     let picker = Picker::new(
@@ -3296,7 +3296,7 @@ fn changed_file_picker(cx: &mut Context) {
     let renamed = cx.editor.theme.get("diff.delta.moved");
 
     let columns = [
-        PickerColumn::new("change", |change: &FileChange, data: &FileChangeData| {
+        PickerColumn::new("CHANGE", |change: &FileChange, data: &FileChangeData| {
             match change {
                 FileChange::Untracked { .. } => Span::styled("+ untracked", data.style_untracked),
                 FileChange::Modified { .. } => Span::styled("~ modified", data.style_modified),
@@ -3306,7 +3306,7 @@ fn changed_file_picker(cx: &mut Context) {
             }
             .into()
         }),
-        PickerColumn::new("path", |change: &FileChange, data: &FileChangeData| {
+        PickerColumn::new("PATH", |change: &FileChange, data: &FileChangeData| {
             let display_path = |path: &PathBuf| {
                 path.strip_prefix(&data.cwd)
                     .unwrap_or(path)
@@ -3387,7 +3387,7 @@ pub fn command_palette(cx: &mut Context) {
             );
 
             let columns = [
-                ui::PickerColumn::new("name", |item, _| match item {
+                ui::PickerColumn::new("NAME", |item, _| match item {
                     MappableCommand::Typable { name, .. } => format!(":{name}").into(),
                     MappableCommand::Static { name, .. } => (*name).into(),
                     MappableCommand::Macro { .. } => {
@@ -3395,7 +3395,7 @@ pub fn command_palette(cx: &mut Context) {
                     }
                 }),
                 ui::PickerColumn::new(
-                    "bindings",
+                    "BINDINGS",
                     |item: &MappableCommand, keymap: &crate::keymap::ReverseKeymap| {
                         keymap
                             .get(item.name())
@@ -3414,7 +3414,7 @@ pub fn command_palette(cx: &mut Context) {
                             .into()
                     },
                 ),
-                ui::PickerColumn::new("doc", |item: &MappableCommand, _| item.doc().into()),
+                ui::PickerColumn::new("DOC", |item: &MappableCommand, _| item.doc().into()),
             ];
 
             let picker = Picker::new(columns, 0, commands, keymap, move |cx, command, _action| {

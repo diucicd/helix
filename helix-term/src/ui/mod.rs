@@ -246,7 +246,7 @@ pub fn file_picker(editor: &Editor, root: PathBuf) -> FilePicker {
     log::debug!("file_picker init {:?}", Instant::now().duration_since(now));
 
     let columns = [PickerColumn::new(
-        "path",
+        "PATH",
         |item: &PathBuf, data: &FilePickerData| {
             let path = item.strip_prefix(&data.root).unwrap_or(item);
             let mut spans = Vec::with_capacity(3);

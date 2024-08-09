@@ -1445,7 +1445,7 @@ fn lsp_workspace_command(
             let call: job::Callback = Callback::EditorCompositor(Box::new(
                 move |_editor: &mut Editor, compositor: &mut Compositor| {
                     let columns = [ui::PickerColumn::new(
-                        "title",
+                        "TITLE",
                         |(_ls_id, command): &(_, helix_lsp::lsp::Command), _| {
                             command.title.as_str().into()
                         },
