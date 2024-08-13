@@ -404,6 +404,9 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "C-a" => goto_first_nonwhitespace,
         "C-e" => goto_line_end,
+        // just like emacs
+        "C-f" => move_char_right,
+        "C-b" => move_char_left,
     });
     hashmap!(
         Mode::Normal => normal,
