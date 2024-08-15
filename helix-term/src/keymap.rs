@@ -2,6 +2,7 @@ pub mod default;
 pub mod macros;
 
 pub use crate::commands::MappableCommand;
+use crate::ctrl;
 use arc_swap::{
     access::{DynAccess, DynGuard},
     ArcSwap,
@@ -334,7 +335,7 @@ impl Keymaps {
         let keymaps = &*self.map();
         let keymap = &keymaps[&mode];
 
-        if key!(Esc) == key {
+        if key!(Esc) == key || ctrl!('c') == key {
             if !self.state.is_empty() {
                 // Note that Esc is not included here
                 return KeymapResult::Cancelled(self.state.drain(..).collect());
