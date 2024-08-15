@@ -261,7 +261,7 @@ impl<T: Component> Component for Popup<T> {
             _ => return EventResult::Ignored(None),
         };
 
-        if key!(Esc) == key && self.ignore_escape_key {
+        if (key!(Esc) == key || ctrl!('c') == key) && self.ignore_escape_key {
             return EventResult::Ignored(None);
         }
 

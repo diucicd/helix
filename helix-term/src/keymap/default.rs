@@ -368,6 +368,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "home" => extend_to_line_start,
         "end" => extend_to_line_end,
         "esc" => exit_select_mode,
+        "C-c" => exit_select_mode,
 
         "v" => normal_mode,
         "g" => { "Goto"
@@ -378,6 +379,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
     }));
     let insert = keymap!({ "Insert mode"
         "esc" => normal_mode,
+        "C-c" => normal_mode,
 
         "C-s" => commit_undo_checkpoint,
         "C-x" => completion,
