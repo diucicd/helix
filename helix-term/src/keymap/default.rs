@@ -24,7 +24,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "U" => switch_to_uppercase,
 
         "home" => goto_line_start,
-        "end" => goto_line_end,
+        "end" => goto_line_end_newline,
         //"G" => goto_last_line,
 
         "w" => move_next_word_start,
@@ -338,7 +338,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "C-z" => suspend,
 
         "C-a" => goto_first_nonwhitespace,
-        "C-e" => goto_line_end,
+        "C-e" => goto_line_end_newline,
     });
     let mut select = normal.clone();
     select.merge_nodes(keymap!({ "Select mode"
@@ -403,7 +403,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         //"end" => goto_line_end_newline,
 
         "C-a" => goto_first_nonwhitespace,
-        "C-e" => goto_line_end,
+        "C-e" => goto_line_end_newline,
         // just like emacs
         "C-f" => move_char_right,
         "C-b" => move_char_left,
