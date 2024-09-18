@@ -84,7 +84,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
 
         // still don't know the usage, so give those key to change
-        // "s" => select_regex,
+        "C-s" => select_regex,
         "A-s" => split_selection_on_newline,
         "A-minus" => merge_selections,
         "A-_" => merge_consecutive_selections,
@@ -100,7 +100,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
         "A-b" => move_parent_node_start,
         "A-a" => select_all_siblings,
 
-        "%" => select_all,
+        // "%" => select_all,
         "x" => extend_line_below,
         "X" => extend_to_line_bounds,
         "A-x" => shrink_to_line_bounds,
@@ -224,7 +224,7 @@ pub fn default() -> HashMap<Mode, KeyTrie> {
 
         "C-i" | "tab" => jump_forward, // tab == <C-i>
         "C-o" => jump_backward,
-        "C-s" => save_selection,
+        // "C-x C-s" => save_selection,
 
         "space" | "," => { "Leader"
             "F" => file_picker,
